@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @property --border-angle {
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0turn;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .card {
+            width: 300px;
+            height: 400px;
+            border-radius: 16px;
+            display: grid;
+            place-content: center;
+            text-align: center;
+            color: rgba(0,0,0,0.87);
+            position: relative;
+            overflow: hidden;
+            transition: 
+                transform 0.3s ease, 
+                box-shadow 0.3s ease,
+                background-color 0.3s ease,
+                color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 
+                        0 1px 3px rgba(0,0,0,0.08);
+            background-color: white;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            
+            --border-angle: 0turn;
+            background: conic-gradient(
+                from var(--border-angle), 
+                transparent 20%, 
+                #BBDEF0,
+                #FBD87F,
+                #00A6A6,
+                #6369D1,
+                #F75590,
+                transparent 99%
+            );
+            
+            animation: border-spin 2.5s linear infinite;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12), 
+                        0 4px 8px rgba(0,0,0,0.06);
+            background-color: #3B54F6;
+            color: white;
+        }
+
+        .card:hover::before {
+            animation-play-state: paused;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 12px;
+            z-index: 2;
+            transition: background-color 0.3s ease;
+        }
+
+        .card:hover::after {
+            background-color: #3B54F6;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+            transition: color 0.3s ease;
+        }
+
+        @keyframes border-spin {
+            0% {
+                --border-angle: 0turn;
+            }
+            50% {
+                --border-angle: 0.75turn;
+            }
+            100% {
+                --border-angle: 1turn;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <h2 style="font-size: 1.5rem; margin-bottom: 16px;">Halloween</h2>
+            <p style="color: rgba(0,0,0,0.6);">
+                A ladder is open beneath someone’s apple tree.
+                Beneath a dead sky the contours are flattened.
+                So the land of the dead is closer today.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
