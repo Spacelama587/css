@@ -48,20 +48,18 @@
             --border-angle: 0turn;
             background: conic-gradient(
                 from var(--border-angle), 
-                transparent 20%, 
                 #BBDEF0,
                 #FBD87F,
-                #00A6A6,
+                #00A6A6, 
                 #6369D1,
-                #F75590,
-                transparent 99%
+                #F75590
             );
             
-            animation: border-spin 2.5s linear infinite;
+            animation: border-spin 3s linear forwards;
             z-index: 1;
         }
 
-        .card:hover {
+        .card.final {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.12), 
                         0 4px 8px rgba(0,0,0,0.06);
@@ -69,8 +67,16 @@
             color: white;
         }
 
-        .card:hover::before {
-            animation-play-state: paused;
+        .card.final::before {
+            --border-angle: 1turn;
+            background: conic-gradient(
+                from var(--border-angle),
+                #F75590,
+                #F75590,
+                #F75590,
+                #F75590,
+                #F75590
+            );
         }
 
         .card::after {
@@ -86,7 +92,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .card:hover::after {
+        .card.final::after {
             background-color: #3B54F6;
         }
 
@@ -101,9 +107,6 @@
             0% {
                 --border-angle: 0turn;
             }
-            50% {
-                --border-angle: 0.75turn;
-            }
             100% {
                 --border-angle: 1turn;
             }
@@ -111,15 +114,24 @@
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="card" id="animatedCard">
         <div class="card-content">
             <h2 style="font-size: 1.5rem; margin-bottom: 16px;">Halloween</h2>
             <p style="color: rgba(0,0,0,0.6);">
-                A ladder is open beneath someone’s apple tree.
+                A ladder is open beneath someone's apple tree.
                 Beneath a dead sky the contours are flattened.
                 So the land of the dead is closer today.
             </p>
         </div>
     </div>
+
+    <script>
+        const card = document.getElementById("animatedCard");
+
+        // Add the final styling class when the animation ends
+        card.addEventListener("animationend", () => {
+            card.classList.add("final");
+        });
+    </script>
 </body>
 </html>
